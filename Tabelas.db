@@ -1,0 +1,152 @@
+CREATE TABLE rede(
+	nome VARCHAR(30) PRIMARY KEY NOT NULL,
+	rua VARCHAR(30) NOT NULL,
+	numero  INTEGER NOT NULL,
+	bairro VARCHAR NOT NULL,
+	cep NUMERIC NOT NULL,
+	complemento VARCHAR
+);
+
+
+CREATE TABLE filial(
+	id INTEGER PRIMARY KEY NOT NULL,
+	cpf_gerente NUMERIC NOT NULL,
+	nome_rede VARCHAR NOT NULL,
+	nome VARCHAR NOT NULL,
+	rua VARCHAR NOT NULL,
+	numero INTEGER NOT NULL,
+	bairro VARCHAR NOT NULL,
+	cep NUMERIC NOT NULL,
+	complemento VARCHAR NOT NULL,
+    unique (id),
+	FOREIGN KEY (nome_rede) REFERENCES rede(nome)
+);
+
+
+CREATE TABLE funcionario(
+	id_filial INTEGER NOT NULL,
+	cpf NUMERIC NOT NULL,
+	salario INTEGER NOT NULL,
+	primeiro_nome VARCHAR NOT NULL,
+	sobrenome VARCHAR NOT NULL,
+	sexo CHAR(1),
+	email VARCHAR,
+	rua VARCHAR NOT NULL,
+	numero INTEGER NOT NULL,
+	bairro VARCHAR NOT NULL,
+	cep NUMERIC NOT NULL,
+	compelemnto VARCHAR,
+    UNIQUE (cpf),
+	PRIMARY KEY(cpf,id_filial),
+	FOREIGN KEY (id_filial) REFERENCES filial(id)
+
+);
+
+
+CREATE TABLE gerente(
+	cpf_funcionario NUMERIC(11) NOT NULL,
+	id_filial INTEGER NOT NULL,
+	PRIMARY KEY (id_filial,cpf_funcionario),
+	FOREIGN KEY(id_filial) REFERENCES filial(id),
+	FOREIGN KEY(cpf_funcionario) REFERENCES funcionario(cpf)	
+);
+
+
+
+CREATE TABLE fornecedor(
+	cnpj NUMERIC PRIMARY KEY NOT NULL,
+	nome VARCHAR(30) NOT NULL,
+	rua VARCHAR(30) NOT NULL,
+	numero  INTEGER NOT NULL,
+	bairro VARCHAR NOT NULL,
+	cep NUMERIC NOT NULL,
+	complemento VARCHAR
+);
+CREATE TABLE fornece(
+	cnpj_fornecedor NUMERIC NOT NULL,	
+	cpf_funcionario NUMERIC NOT NULL,
+	id_filial INTEGER NOT NULL,
+	PRIMARY KEY (id_filial,cpf_funcionario, cnpj_fornecedor),
+	FOREIGN KEY(id_filial) REFERENCES filial(id),
+	FOREIGN KEY(cpf_funcionario) REFERENCES funcionario(cpf),	
+	FOREIGN KEY(cnpj_fornecedor) REFERENCES fornecedor(cnpj)
+);
+
+
+
+CREATE TABLE telefone_funcionario(
+	id_filial INTEGER NOT NULL,
+	cpf_funcionario NUMERIC NOT NULL,
+	telefone NUMERIC NOT NULL,
+	PRIMARY KEY (id_filial,cpf_funcionario),
+	FOREIGN KEY(id_filial) REFERENCES filial(id),
+	FOREIGN KEY(cpf_funcionario) REFERENCES funcionario(cpf)	
+);
+
+CREATE TABLE caixa(
+	cpf_funcionario NUMERIC NOT NULL,
+	id_filial INTEGER NOT NULL,
+	PRIMARY KEY (id_filial,cpf_funcionario),
+	FOREIGN KEY(id_filial) REFERENCES filial(id),
+	FOREIGN KEY(cpf_funcionario) REFERENCES funcionario(cpf)
+);
+
+
+CREATE TABLE telefone_fornecedor(
+	cnpj_fornecedor NUMERIC PRIMARY KEY NOT NULL,
+	telefone NUMERIC,
+	FOREIGN KEY (cnpj_fornecedor) REFERENCES fornecedor(cnpj)
+);
+
+
+CREATE TABLE prateleira(
+	id NUMERIC PRIMARY KEY NOT NULL
+);
+CREATE TABLE produto(
+	cod NUMERIC NOT NULL,
+	id_prateleira INTEGER NOT NULL,
+	nome VARCHAR NOT NULL,
+	preço FLOAT NOT NULL,
+	estoque INTEGER,
+	marca VARCHAR NOT NULL,
+	fabricação DATE NOT NULL,
+	validade DATE NOT NULL,
+	UNIQUE (cod),
+	PRIMARY KEY (cod, id_prateleira),
+	FOREIGN KEY (id_prateleira) REFERENCES prateleira(id)
+);
+
+CREATE TABLE cliente(
+	id INTEGER PRIMARY KEY NOT NULL,
+	nome VARCHAR NOT NULL,
+	rua VARCHAR NOT NULL,
+	numero INTEGER NOT NULL,
+	bairro VARCHAR NOT NULL,
+	cep NUMERIC NOT NULL,
+	complemento VARCHAR
+);
+CREATE TABLE venda(
+	cod_produto NUMERIC NOT NULL,
+	id_cliente INTEGER NOT NULL,
+	cpf_funcionario NUMERIC NOT NULL,
+	PRIMARY KEY (cod_produto,id_cliente,cpf_funcionario),
+	FOREIGN KEY (cod_produto) REFERENCES produto(cod),
+	FOREIGN KEY (id_cliente) REFERENCES cliente (id),
+	FOREIGN KEY (cpf_funcionario) REFERENCES funcionario(cpf)
+);
+ CREATE TABLE telefone_cliente(
+ 	id_cliente INTEGER PRIMARY KEY NOT NULL,
+	 telefone NUMERIC NOT NULL
+ );
+ CREATE TABLE pessoa_fisica(
+ 	id_cliente INTEGER NOT NULL,
+	 cpf NUMERIC NOT NULL,
+	 PRIMARY KEY (id_cliente,cpf),
+	 FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+ );
+ CREATE TABLE pessoa_juridica(
+ 	id_cliente INTEGER NOT NULL,
+	 cnpj NUMERIC NOT NULL,
+	 PRIMARY KEY (id_cliente,cnpj),
+ 	FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+ )

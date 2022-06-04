@@ -1,0 +1,60 @@
+Comandos usados;
+
+1.mostrar dados de  todos os funcionarios :
+
+	SELECT primeiro_nome,sobrenome,cpf,sexo,salario,email,rua,numero,bairro,cep,complemento
+	from funcionario;
+
+
+2.dar aumento no salario de determinado funcionario atraves do seu cpf
+
+	UPDATE funcionario set salario=2500
+	where cpf=1111
+
+mostrar q houve aumento
+
+	SELECT salario,cpf
+	from funcionario
+
+
+3.mostrar funcionarios que ganham entre 1000 a 2000
+
+	SELECT *
+	from funcionario
+	where (salario BETWEEN 1000 and 2000)
+
+
+4. mostrar dados de todos os clientes cadastrados
+
+	SELECT nome,rua,numero,bairro,cep,complemento
+	from cliente;
+
+
+
+5.mostrar os produtos
+
+	select *
+	from produto
+
+
+6.selecionar produtos com estoque entre 30 a 90
+
+	select *
+	from produto
+	WHERE (estoque BETWEEN 30 and 90)
+
+
+7.mostrar as marcas dos produtos
+
+	select marca
+	from produto
+
+
+8.mostrar produtos que estao na prateleira de id 2
+
+	select *
+	from produto
+	WHERE(id_prateleira=2)
+
+
+

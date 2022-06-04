@@ -1,0 +1,121 @@
+INSERT INTO cliente (id, nome, rua, numero, bairro, cep, complemento)
+  VALUES
+(10,'Jorge','Av. Siqueira Campos',44,'Candeias', 22222222, 'Proximo ao');
+
+INSERT INTO cliente (id, nome, rua, numero, bairro, cep, complemento)
+  VALUES
+(11,'Marcos','Av. Olivia Flores',677,'Candeias', 33333333, 'Proximo ao Hiper'),
+(12,'Ana','Av. Roberto Chapolin',88,'Alto Maron', 44444444, 'Proximo ao Correios'),
+(13,'Marcela','Av. Avelina Josefá',974,'Recreio', 55555555, 'Proximo ao Teatro');
+
+INSERT INTO fornecedor (cnpj, nome, rua, numero, bairro, cep, complemento)
+  VALUES
+(45524234,'Mauricio','Av. Olivia Flores',889,'Portela', 33434445, 'Proximo ao Hiper'),
+(12312355,'Cleber','Av. Marcel Avilar',99,'Rocinha', 44667876, 'Proximo ao Correios'),
+(34567888,'Angela','Av. das Graças',10,'Leblon', 55663464, 'Proximo ao Teatro');
+
+INSERT INTO rede (nome,rua,numero,bairro,cep,complemento) VALUES (
+  'Papelaria',
+  'Avenida Sete',
+  '33',
+  'Candeias',
+  '99999999',
+  'Proximo à arena de eventos'
+); SELECT * FROM rede;
+
+INSERT INTO filial (id, cpf_gerente, nome_rede, nome, rua, numero, bairro, cep, complemento)
+  VALUES
+(1,111111111,'Papelaria','José','Avenida Sete', 33, 'Candeias', 99999999, 'Proximo à arena de eventos');
+
+INSERT INTO rede (nome, rua, numero, bairro, cep, complemento)
+  VALUES
+('Laticinios','Avenida Brasil', 44, 'Carandiru', 12734833, '1o andar'),
+('Roupas e Calçados','Avenida Moreira', 67, 'Bloquinhos', 74871123, 'Proximo à caixa');
+
+INSERT INTO filial (id, cpf_gerente, nome_rede, nome, rua, numero, bairro, cep, complemento)
+  VALUES
+(2,222222222,'Laticinios','Marina','Avenida Brasil', 44, 'Carandiru', 12734833, '1o andar'),
+(3,333333333,'Roupas e Calçados','Miranda','Avenida Moreira', 67, 'Bloquinhos', 74871123, 'Proximo à caixa');
+
+INSERT INTO funcionario (id_filial, cpf, salario, primeiro_nome, sobrenome, sexo, email, rua, numero, bairro, cep)
+VALUES
+(1, 00001111, 1200, 'Marcio', 'Júnior', 'M', 'marcio2009@gmail.com', 'Av. Jequié', 22, 'Candeias', 3939939);
+
+INSERT INTO funcionario (id_filial, cpf, salario, primeiro_nome, sobrenome, sexo, email, rua, numero, bairro, cep)
+VALUES
+(2, 33334444, 1200, 'Claudia', 'Mariana', 'F', 'claudinha11122@gmail.com', 'Av. Calabouço', 452, 'Recreio', 4500223);
+
+INSERT INTO caixa (cpf_funcionario,id_filial) VALUES (
+  '1111',
+  '1'
+); SELECT * FROM caixa;
+
+INSERT INTO gerente (cpf_funcionario,id_filial) VALUES (
+  '33334444',
+  '2'
+); SELECT * FROM gerente;
+
+INSERT INTO pessoa_fisica (id_cliente,cpf) VALUES (
+  '10',
+  '22334443'
+); SELECT * FROM pessoa_fisica;
+
+INSERT INTO pessoa_fisica (id_cliente,cpf) VALUES (
+  '11',
+  '32334442'
+); SELECT * FROM pessoa_fisica;
+
+INSERT INTO pessoa_juridica (id_cliente,cnpj) VALUES (
+  '12',
+  '233445567'
+); SELECT * FROM pessoa_juridica;
+
+INSERT INTO pessoa_juridica (id_cliente,cnpj) VALUES (
+  '13',
+  '342341238'
+); SELECT * FROM pessoa_juridica;
+
+INSERT INTO prateleira (id) VALUES (
+  '1'
+); SELECT * FROM prateleira;
+
+INSERT INTO prateleira (id) VALUES (
+  '2'
+); SELECT * FROM prateleira;
+
+INSERT INTO prateleira (id) VALUES (
+  '3'
+); SELECT * FROM prateleira;
+
+INSERT INTO produto (cod, id_prateleira, nome, preço, estoque, marca)
+VALUES
+(33, 1, 'Papel A4', 50, 30, 'Chamex'),
+(35, 2, 'Leite Integral', 4, 90, 'Damare'),
+(36, 2, 'Leite Desnatado', 6, 76, 'Nestle'),
+(37, 3, 'Blusa Rosa', 99, 10, 'Colcci'), 
+(38, 3, 'Calça Jeans', 120, 5, 'Hering');
+
+INSERT INTO telefone_cliente (id_cliente, telefone)
+VALUES
+(10, 99999999),
+(11, 22222222),
+(12, 33444433),
+(13, 44504450);
+
+INSERT INTO telefone_fornecedor (cnpj_fornecedor, telefone)
+VALUES
+(45524234, 44444444),
+(12312355, 11111111),
+(34567888, 11112222);
+
+INSERT INTO telefone_funcionario (id_filial, cpf_funcionario, telefone)
+VALUES
+(1, 1111, 99998888),
+(2, 33334444, 33339099);
+
+INSERT into venda (cod_produto, id_cliente, cpf_funcionario)
+VALUES
+(33, 10, 1111),
+(35, 11, 33334444),
+(36, 12, 33334444),
+(37, 10, 1111);
